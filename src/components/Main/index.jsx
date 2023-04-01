@@ -1,8 +1,9 @@
 
-function Main({todoList, setTodoList, todo}) {
+function Main({todoList, setTodoList, todo, filteredTodos, setFilteredTodos}) {
 	
 	const deleted = () => {
-		setTodoList(todoList.filter((el) => el.id !== todo.id))
+		setFilteredTodos(filteredTodos.filter((el) => el.id !== todo.id))
+		setTodoList(filteredTodos.filter((el) => el.id !== todo.id))
 	}
 
 	const completeHandler = () => {

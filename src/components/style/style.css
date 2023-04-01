@@ -297,11 +297,11 @@ body {
 .filters li .btn {
 	color: inherit;
 	margin: 3px;
-	padding: 3px 7px;
+	padding: 0px 7px;
 	text-decoration: none;
 	border: 1px solid transparent;
 	border-radius: 3px;
-	cursor: pointer; /* Because of Mavo: we don't use the href attribute in such situations */
+	cursor: pointer;
 }
 
 .filters li .btn:hover {

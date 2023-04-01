@@ -1,48 +1,53 @@
-import React from 'react'
+import { useEffect } from "react";
 
-function Footer({todoList, setTodoList}) {
+function Footer({todoList, setTodoList, setStatus, filteredTodos}) {
 
 	const clear = () => {
 		setTodoList(todoList.filter(el => el.completed === false))
 	}
 
-	const allActive = () => {
-		setTodoList(todoList.map(todo => {
-			return {...todo, completed: false}
-		}));
-	}
+	const showAll = () => {
+		setStatus("all");
+	  }
+	
+	  const showActive = () => {
+		setStatus("active");
+	  }
+	
+	  const showCompleted = () => {
+		setStatus("completed");
+	  }
 
-	const allCompleted = () => {
-		setTodoList(todoList.map(todo => {
-			return {...todo, completed: true}
-		}));
-	}
+	return (
+		<footer className="footer">
+			<span className="todo-count">
+				<strong>{filteredTodos.length} </strong>
+				items left
+			</span>
 
-  return (
-    <footer className="footer">
-		<span className="todo-count">
-			<strong>{todoList.length} </strong>
-			items left
-		</span>
+			<ul className="filters">
+				<li>
+					<button className='btn selected' onClick={showAll}>
+						All
+					</button>
+				</li>
+				<li>
+					<button className='btn' onClick={showActive}>
+						Active
+					</button>
+				</li>
+				<li>
+					<button className='btn' onClick={showCompleted}>
+						Completed
+					</button>
+				</li>
+			</ul>
 
-		<ul className="filters">
-			<li>
-				<button className='btn' onClick={allActive} >
-					Active
-				</button>
-			</li>
-			<li>
-				<button className='btn' onClick={allCompleted}>
-					Completed
-				</button>
-			</li>
-		</ul>
-
-		<button onClick={clear} className="clear-completed">
-			Clear completed
-		</button>
-	</footer>
-  )
+			<button onClick={clear} className="clear-completed">
+				Clear completed
+			</button>
+		</footer>
+	)
 }
 
 export default Footer

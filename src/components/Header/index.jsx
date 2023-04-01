@@ -8,8 +8,9 @@ function Header({todoList, setTodoList}) {
     }
 
     const onSubmit = (e) => {
+      e.preventDefault();
       if (todo === '') {
-      return false        
+      return
       }else{
         e.preventDefault()
         setTodoList([...todoList, {text: todo, id: Math.random(), completed: false}])

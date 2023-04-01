@@ -13,20 +13,41 @@ function Todos() {
       }
     }
     );
+
+    const [status, setStatus] = useState("All");
+    const [filteredTodos, setFilteredTodos] = useState([]);
+
+    const filterHandler = () => {
+      switch (status) {
+        case "completed":
+          setFilteredTodos(todoList.filter((todo) => todo.completed === true));
+          break;
+          case "active":
+          setFilteredTodos(todoList.filter((todo) => todo.completed === false));
+            break;
+        default:
+          setFilteredTodos(todoList);
+          break;
+      }
+    }
+    useEffect(() => {
+      filterHandler();
+    }, [status])
     
     const saveLocalTodos = () => {
       localStorage.setItem('todos', JSON.stringify(todoList))
     }
 
     useEffect(() => {
+      setFilteredTodos(todoList)
       saveLocalTodos()
     }, [todoList])
   return (
     <div className="todoapp">
         <Header setTodoList={setTodoList} todoList={todoList}/>
-        {todoList.map((todo) => 
-        <Main key={todo.id} todo={todo} todoList={todoList} setTodoList={setTodoList}/>)}
-        <Footer todoList={todoList} setTodoList={setTodoList}/>
+        {filteredTodos.map((todo) => 
+        <Main key={todo.id} todo={todo} todoList={todoList} setTodoList={setTodoList} filteredTodos={filteredTodos} setFilteredTodos={setFilteredTodos}/>)}
+        <Footer todoList={todoList} setTodoList={setTodoList} setStatus={setStatus} filteredTodos={filteredTodos}/>
     </div>
   )
 }
